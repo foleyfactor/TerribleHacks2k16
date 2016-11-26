@@ -11,8 +11,8 @@ body {
   font-family: Helvetica Neue;
 }
 
-.list-item {
-  position:relative;
+.tile {
+  position: relative;
   float: left;
   margin: 0.5em;
   font-size: 300%;
@@ -23,4 +23,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;  
+}
+
+.tile-active {
+  background-color: #33cccc;
 }
