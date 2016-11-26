@@ -23,6 +23,7 @@ function swap(arr, i) {
 
 function poll(arr, i, j) {
 	$.get("http://127.0.0.1:5000/twitch", function(data) {
+		console.log(data)
 		bubble(arr, i, j, JSON.parse(data));
 	});
 }
@@ -55,7 +56,7 @@ function bubble(arr, i, j, sw) {
 		bubble(arr, i-1, 0, sw);
 	} else if (i == -1) {
 		var a2 = copy(arr);
-		if equal(arr, a2) {
+		if (equal(arr, a2)) {
 			return;
 		} else {
 			bubble(arr, arr.length-1, 0, elem);

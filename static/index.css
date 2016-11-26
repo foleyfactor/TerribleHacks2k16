@@ -1,0 +1,26 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #333333;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Helvetica Neue;
+}
+
+.list-item {
+  position:relative;
+  float: left;
+  margin: 0.5em;
+  font-size: 300%;
+  width: 2em;
+  height: 2em;
+  color: #333333;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
