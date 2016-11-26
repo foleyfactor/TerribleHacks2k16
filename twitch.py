@@ -74,5 +74,11 @@ class Twitch:
         print(data)
         print("----")
 
+        messages = []
+        for line in data.split('\r\n'):
+            if line:
+                d = self.parse_message(line)
+                if d:
+                    messages.append(d)
 
-        return [self.parse_message(line) for line in data.split('\r\n') if line]
+        return messages
