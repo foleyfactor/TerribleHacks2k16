@@ -12,9 +12,9 @@ class Application extends React.Component {
   constructor() {
     super();
     this.state = {
-      list: [5, 7, 1, 2, 6],
+      list: this.genRandomList(7),
       active: 0,
-      period: 3000
+      period: 5000
     }
     setTimeout(() => this.bubble(), this.state.period);
   }
@@ -53,6 +53,21 @@ class Application extends React.Component {
       }
     }
     return true;
+  }
+
+  genRandomList(l) {
+    var arr = [];
+    for (var i=0; i<l; i++) {
+      var n = Math.floor(Math.random()*100) + 1;  
+      if (arr.indexOf(n) === -1) {
+        arr.push(n);
+      } else {
+        i -= 1;
+      }
+    }
+
+    console.log(arr);
+    return arr;
   }
   
   swap(iA, iB) {
