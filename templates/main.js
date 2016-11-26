@@ -21,28 +21,30 @@ function swap(arr, i) {
 	return arr;
 }
 
-function bubble(arr, i, j) {
+function poll(arr, i, j) {
+	$.get("localhost:5000/twitch", function(data) {
+		bubble(arr, i, j, JSON.parse(data));
+	});
+}
+
+function bubble(arr, i, j, sw) {
 	var elem = $("#test");
 	elem.text(arrayToString(arr));
 	if (j == i) {
-		bubble(arr, i-1, 0);
+		bubble(arr, i-1, 0, sw);
 	} else if (i == -1) {
 		return;
 	} else {
-		if (arr[j] > arr[j+1]) {
+		if (sw) {
 			console.log(arr[j], arr[j+1]);
 			arr = swap(arr, j);
 			elem.scramble(arrayToString(arr));
-
-			setTimeout(() => bubble(arr, i, j+1), 2500);
-		} else {
-			bubble(arr, i, j+1);
 		}
+		setTimeout(() => poll(arr, i, j+1), 2500);
 	}
 }
 
 function start() {
-	console.log("started");
 	var arr = stringToArray($("#test").text());
 	var elem = $("#test");
 	bubble(arr, arr.length-1, 0, elem);
@@ -55,6 +57,4 @@ function start() {
 	// 		}
 	// 	}
 	// }
-
-	console.log(arr);
 }
