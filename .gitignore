@@ -1,4 +1,5 @@
 .env
+env.py
 
 .git
 *.DS_Store
