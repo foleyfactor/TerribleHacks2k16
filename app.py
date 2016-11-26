@@ -27,13 +27,14 @@ def getTwitch():
 
 	trues, falses = 0, 0
 
-	for message in messages:
-		text = message["message"]
-		print(message["username"] + ":", text)
-		if text in trueStrings:
-			trues += 1
-		elif text in falseStrings:
-			falses += 1
+	if messages:
+		for message in messages:
+			text = message["message"]
+			print(message["username"] + ":", text)
+			if text in trueStrings:
+				trues += 1
+			elif text in falseStrings:
+				falses += 1
 
 	print("trues:", trues, "\tfalses:", falses)
 
