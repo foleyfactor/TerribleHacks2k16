@@ -22,7 +22,7 @@ function swap(arr, i) {
 }
 
 function poll(arr, i, j) {
-	$.get("localhost:5000/twitch", function(data) {
+	$.get("http://127.0.0.1:5000/twitch", function(data) {
 		bubble(arr, i, j, JSON.parse(data));
 	});
 }
