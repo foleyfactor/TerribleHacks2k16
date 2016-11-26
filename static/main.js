@@ -27,13 +27,39 @@ function poll(arr, i, j) {
 	});
 }
 
+function equal(a1, a2) {
+	if (a1.length != a2.length) {
+		return false;
+	}
+
+	for (var i=0; i<a1.length; i++) {
+		if (a1[i] != a2[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function copy(arr){
+	var n = []
+	for (var i=0; i<arr.length; i++) {
+		n.push(arr[i]);
+	}
+	return n;
+}
+
 function bubble(arr, i, j, sw) {
 	var elem = $("#test");
 	elem.text(arrayToString(arr));
 	if (j == i) {
 		bubble(arr, i-1, 0, sw);
 	} else if (i == -1) {
-		return;
+		var a2 = copy(arr);
+		if equal(arr, a2) {
+			return;
+		} else {
+			bubble(arr, arr.length-1, 0, elem);
+		}
 	} else {
 		if (sw) {
 			console.log(arr[j], arr[j+1]);
