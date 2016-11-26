@@ -36,10 +36,25 @@ class Application extends React.Component {
       this.setState({
         active: (i + 1) % (this.state.list.length - 1)
       });
-      setTimeout(() => this.bubble(), this.state.period);
+      if (!this.equal(this.state.list, this.state.list.slice().sort())) {
+        setTimeout(() => this.bubble(), this.state.period);
+      }
     });
   }
 
+  equal(a1, a2) {
+    if (a1.length != a2.length) {
+      return false;
+    }
+
+    for (var i=0; i<a1.length; i++) {
+      if (a1[i] != a2[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
   swap(iA, iB) {
     var valA = this.state.list[iA];
     var valB = this.state.list[iB];
