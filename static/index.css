@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background: #333333;
+  background: #292F36;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -18,13 +18,14 @@ body {
   font-size: 300%;
   width: 2em;
   height: 2em;
-  color: #333333;
-  background: #ffffff;
+  border-radius: 0.5em;
+  color: #ffffff;
+  background: #4ECDC4;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 .tile-active {
-  background-color: #33cccc;
+  background-color: #FF6B6B;
 }
