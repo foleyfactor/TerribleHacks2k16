@@ -29,11 +29,13 @@ class Application extends React.Component {
     }
 
     $.get("http://127.0.0.1:5000/twitch", (data) => {
-      console.log(data)
-      if (JSON.parse(data)) {
+      console.log(data);
+      var data = JSON.parse(data);
+      if (data["trues"] > data["falses"]) {
         this.swap(i, i + 1);
       }
       this.setState({
+        voteText: "Yes: " + data["trues"] + "\t No: " + data["falses"],
         active: (i + 1) % (this.state.list.length - 1)
       });
       if (!this.equal(this.state.list, this.state.list.slice().sort())) {
@@ -103,12 +105,16 @@ class Application extends React.Component {
 
   render() {
     return (
-      <div id="list-container">
-        {
-          this.state.list.map((val, i) => {
-            return <Tile val={val} key={i} active={i == this.state.active || i == this.state.active+1} />;
-          })
-        }
+      <div>
+        <div id="list-container">
+          {
+            this.state.list.map((val, i) => {
+              return <Tile val={val} key={i} active={i == this.state.active || i == this.state.active+1} />;
+            })
+          }
+        </div>
+        <p>{this.state.voteText}</p>
+        <p>Is the number on the right greater than the one on the left? (Type y/n)</p>
       </div>
     );
   }

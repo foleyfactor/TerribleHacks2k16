@@ -29,3 +29,9 @@ body {
 .tile-active {
   background-color: #FF6B6B;
 }
+
+p {
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 125%;
+}

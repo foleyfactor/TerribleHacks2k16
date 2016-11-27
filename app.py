@@ -36,8 +36,7 @@ def getTwitch():
 
 	print("trues:", trues, "\tfalses:", falses)
 
-	return "true" if trues > falses else "false"
-
+	return '{"trues": '+str(trues)+',"falses": '+str(falses)+'}'
 
 if __name__ == '__main__':
 	app.run(debug=True)
