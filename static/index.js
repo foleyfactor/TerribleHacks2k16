@@ -76,22 +76,6 @@ class Application extends React.Component {
 
     console.log("switching" + valA + "-" + valB);
 
-    // var posA = $('#tile-' + valA).position().left;
-    // var posB = $('#tile-' + valB).position().left;
-    // var delta = Math.max(posA, posB) - Math.min(posA, posB);
-    // console.log("delta", delta)
-    // if (posB > posA) {
-    //   $('#tile-' + valA)
-    //     .animate({left:"+=" + delta}); 
-    //   $('#tile-' + valB)
-    //     .animate({left:"-=" + delta});
-    // } else {
-    //   $('#tile-' + valB)
-    //     .animate({left:"+=" + delta}); 
-    //   $('#tile-' + valA)
-    //     .animate({left:"-=" + delta});
-    // }
-
     var newList = this.state.list.slice();
     newList[iA] = this.state.list[iB];
     newList[iB] = this.state.list[iA];
@@ -99,6 +83,22 @@ class Application extends React.Component {
     this.setState({
       list: newList
     });
+
+    var posA = $('#tile-' + valA).position().left;
+    var posB = $('#tile-' + valB).position().left;
+    var delta = Math.max(posA, posB) - Math.min(posA, posB);
+    console.log("delta", delta)
+    if (posB > posA) {
+      $('#tile-' + valA)
+        .animate({left:"+=" + delta}, () => {$('#tile-' + valA).attr("style", "")}); 
+      $('#tile-' + valB)
+        .animate({left:"-=" + delta}, () => {$('#tile-' + valB).attr("style", "")});
+    } else {
+      $('#tile-' + valB)
+        .animate({left:"+=" + delta}, () => {$('#tile-' + valB).attr("style", "")}); 
+      $('#tile-' + valA)
+        .animate({left:"-=" + delta}, () => {$('#tile-' + valA).attr("style", "")});
+    }
   }
 
   render() {
