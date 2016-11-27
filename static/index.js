@@ -1,7 +1,7 @@
 class Tile extends React.Component {
   render() {
     return (
-      <div id={"tile-" + this.props.val} className={"tile" + (this.props.active?" tile-active":"")}>
+      <div id={"tile-" + this.props.i} className={"tile" + (this.props.active?" tile-active":"")}>
           {this.props.val}
       </div>
     );
@@ -12,16 +12,18 @@ class Application extends React.Component {
   constructor() {
     super();
     this.state = {
-      list: [5, 7, 1, 2, 6],
+      list: [1, 2, 3, 4, 5],
+      ids: [0, 1, 2, 3, 4],
       active: 0,
-      period: 3000
+      period: 1000,
+      count: 0
     }
     setTimeout(() => this.bubble(), this.state.period);
   }
 
   bubble() {
     var i = this.state.active;
-    console.log("bubble", i)
+    console.log("bubble", i);
     if (i > this.state.list.length-2) {
       this.setState({
         active: 0
@@ -29,10 +31,12 @@ class Application extends React.Component {
     }
 
     $.get("http://127.0.0.1:5000/twitch", (data) => {
-      console.log(data)
-      if (JSON.parse(data)) {
+      console.log(data, this.state.count);
+      if (JSON.parse(data) || this.state.count < 2) {
+        this.setState({count: this.state.count + 1});
         this.swap(i, i + 1);
-      }
+
+      } else {return;}
       this.setState({
         active: (i + 1) % (this.state.list.length - 1)
       });
@@ -54,36 +58,43 @@ class Application extends React.Component {
     }
     return true;
   }
-  
-  swap(iA, iB) {
-    var valA = this.state.list[iA];
-    var valB = this.state.list[iB];
 
-    console.log("switching" + valA + "-" + valB);
+  swap(A, B) {
+    var a = this.state.ids[A];
+    var b = this.state.ids[B];
 
-    // var posA = $('#tile-' + valA).position().left;
-    // var posB = $('#tile-' + valB).position().left;
-    // var delta = Math.max(posA, posB) - Math.min(posA, posB);
-    // console.log("delta", delta)
-    // if (posB > posA) {
-    //   $('#tile-' + valA)
-    //     .animate({left:"+=" + delta}); 
-    //   $('#tile-' + valB)
-    //     .animate({left:"-=" + delta});
-    // } else {
-    //   $('#tile-' + valB)
-    //     .animate({left:"+=" + delta}); 
-    //   $('#tile-' + valA)
-    //     .animate({left:"-=" + delta});
-    // }
+    console.log("switching", A, a, "with", B, b);
 
     var newList = this.state.list.slice();
-    newList[iA] = this.state.list[iB];
-    newList[iB] = this.state.list[iA];
+    newList[a] = this.state.list[b];
+    newList[b] = this.state.list[a];
+
+    var newIds = this.state.ids.slice();
+    newIds[a] = this.state.ids[b];
+    newIds[b] = this.state.ids[a];
 
     this.setState({
-      list: newList
+      list: newList,
+      ids: newIds
     });
+
+    var posA = $("#tile-" + a).offset().left;
+    var posB = $("#tile-" + b).offset().left;
+    var delta = Math.max(posA, posB) - Math.min(posA, posB);
+    console.log("posA", posA);
+    console.log("posB", posB);
+    console.log("delta", delta);
+    if (posB > posA) {
+      $("#tile-" + a)
+        .animate({left:"+=" + delta}); 
+      $("#tile-" + b)
+        .animate({left:"-=" + delta});
+    } else {
+      $("#tile-" + b)
+        .animate({left:"+=" + delta}); 
+      $("#tile-" + a)
+        .animate({left:"-=" + delta});
+    }
   }
 
   render() {
@@ -91,7 +102,7 @@ class Application extends React.Component {
       <div id="list-container">
         {
           this.state.list.map((val, i) => {
-            return <Tile val={val} key={i} active={i == this.state.active || i == this.state.active+1} />;
+            return <Tile key={this.state.ids[i]} i={this.state.ids[i]} val={val} active={this.state.ids[i] == this.state.active || this.state.ids[i] == this.state.active+1} />;
           })
         }
       </div>
@@ -99,4 +110,4 @@ class Application extends React.Component {
   }
 }
 
-ReactDOM.render(<Application />, document.getElementById('app'));
+ReactDOM.render(<Application />, document.getElementById("app"));
